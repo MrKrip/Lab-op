@@ -4,19 +4,45 @@
 
 using namespace std;
 
+void schet()
+{
+    ifstream fin;
+    fin.open("eurovision.csv");
+    if(!fin.is_open())
+    {
+        cout<<"Error opening file!"<<endl;
+    }
+    else
+    {
+    
+    }
+    fin.close();
+}
+
 void newsp()
 {
     ofstream fout;
     int n;
-    string s;
+    string *s=new string[20];
     fout.open("eurovision.csv");
-    cout<<"Vvedite strani : "<<endl;
-    fout<<n<<endl;
+    cout<<"Enter the number of countries : ";
+    cin>>n;
     cin.ignore();
-    for(int i=0;i<20;i++)
+    fout<<n<<endl;
+    for(int i=0;i<n;i++)
     {   
-        getline(cin,s); 
-        fout<<s<<endl;
+        getline(cin,s[i]);
+    }
+    for(int i=0;i<n;i++)
+    {
+        fout<<s[i];
+        for(int j=0;j<n;j++)
+        {
+            cout<<"How many support votes "<<s[i]<<" received from "<<s[j]<<" : ";
+            cin>>n;
+            fout<<";"<<n;
+        }
+        fout<<endl;
     }
 
     fout.close();
@@ -27,12 +53,12 @@ void vibor()
     int a;
     do
     {
-    cout<<"Вы хотите испльзовать уже имеющийся список(1) или написать новый(2) (напишите цифру как ваш выбор) : ";
+    cout<<"Do you want to use the existing list (1) or write a new one (2) (write the number as your choice) : ";
     cin>>a;
     }while((a==1)&&(a==2));
     if(a==1)
     {
-        
+       schet(); 
     }
     if(a==2)
     {
@@ -41,12 +67,11 @@ void vibor()
 }
 
 
-
-
 int main()
 {   
-    setlocale(LC_ALL,"ru");
+    vibor();
 
+    system("pause");
 
     return 0;
 }
