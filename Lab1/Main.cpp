@@ -4,9 +4,11 @@
 
 using namespace std;
 
-void schet()
+void vvod()
 {
     ifstream fin;
+    string *s=new string[20];
+    int n,a;
     fin.open("eurovision.csv");
     if(!fin.is_open())
     {
@@ -14,9 +16,29 @@ void schet()
     }
     else
     {
-    
+        fin>>n;
+        int **arr=new int *[n];
+        for(int i=0;i<n;i++)
+        {
+            arr[n]=new int [n+1];
+        }
+        for(int i=0;i<n;i++)
+        {
+            getline(cin,s[i],';');
+            for(int j=0;j<n;j++)
+            {
+                fin>>a;
+                arr[i][j]=a;
+            }
+            arr[i][n+1]=0;
+        }
     }
     fin.close();
+}
+
+void vivod()
+{
+
 }
 
 void newsp()
@@ -44,8 +66,9 @@ void newsp()
         }
         fout<<endl;
     }
-
+    delete []s;
     fout.close();
+    vvod();
 }
 
 void vibor()
@@ -58,7 +81,7 @@ void vibor()
     }while((a==1)&&(a==2));
     if(a==1)
     {
-       schet(); 
+       vvod(); 
     }
     if(a==2)
     {
