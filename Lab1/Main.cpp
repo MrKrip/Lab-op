@@ -5,16 +5,66 @@
 using namespace std;
 
 void vivod(string *s,int **arr,int n)
-{
+{   
+    int max=0,k=0,p,temp;
+    string a;
+    int *schetchik=new int[10];
+    int *ocenka = new int[10]{ 12,10,8,7,6,5,4,3,2,1 };
     for(int i=0;i<n;i++)
     {
-        cout<<s[i]<<endl;
-        for(int j=0;j<(n+1);j++)
+        for(int m=0;m<10;m++)
         {
-            cout<<arr[i][j]<<"  ";
+            for(int j=0;j<n;j++)
+            {
+                if(arr[j][n]==0)
+                {
+                    if(max<arr[j][i])
+                    {
+                        max=arr[j][i];
+                        schetchik[k]=j;
+                    }
+                }    
+            }
+            arr[schetchik[k]][n]=arr[schetchik[k]][n]+ocenka[m];
+            k++;
+            max=0;
         }
-        cout<<endl;
+        k=0;    
     }
+    p=n;
+    while(n>1)
+    {
+        for(int i=0;i<(n-1);i++)
+        {
+            if(arr[i][n]<arr[i+1][n])
+            {
+                for(int j=0;j<(p+1);j++)
+                {
+                    temp=arr[i][j];
+                    arr[i][j]=arr[i+1][j];
+                    arr[i+1][j]=temp;
+                    a=s[i];
+                    s[i]=s[i+1];
+                    s[i+1]=a;
+                }
+            }
+        }
+        n--;
+    }
+    ofstream fout;
+    fout.open("results.csv");
+    for(int i=0;i<10;i++)
+    {
+        fout<<s[i]<<";";
+        for(int j=0;j<9;j++)
+        {
+            fout<<arr[i][j]<<";";
+        }
+        fout<<arr[i][10]<<endl;
+    }
+    fout.close();
+    delete []ocenka;
+    delete []schetchik;
 }
 
 void vvod()
@@ -29,8 +79,6 @@ void vvod()
     else
     {   
         fin>>n;
-        cout<<n<<endl;
-        cin.ignore();
         string *s=new string[n];
         string *k=new string[n];
         int **arr=new int *[n];
@@ -56,7 +104,11 @@ void vvod()
             }
             arr[i][n]=0; 
         }
+        cout<<"Result is displayed in results.csv"<<endl;
         vivod(s,arr,n);
+        delete []s;
+        delete []k;
+        delete []arr;     
     }
     fin.close();
 }
