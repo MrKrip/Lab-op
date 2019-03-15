@@ -4,53 +4,75 @@
 
 using namespace std;
 
+void vivod(string *s,int **arr,int n)
+{
+    for(int i=0;i<n;i++)
+    {
+        cout<<s[i]<<endl;
+        for(int j=0;j<(n+1);j++)
+        {
+            cout<<arr[i][j]<<"  ";
+        }
+        cout<<endl;
+    }
+}
+
 void vvod()
 {
     ifstream fin;
-    string *s=new string[20];
-    int n,a;
+    int n;
     fin.open("eurovision.csv");
     if(!fin.is_open())
     {
         cout<<"Error opening file!"<<endl;
     }
     else
-    {
+    {   
         fin>>n;
+        cout<<n<<endl;
+        cin.ignore();
+        string *s=new string[n];
+        string *k=new string[n];
         int **arr=new int *[n];
         for(int i=0;i<n;i++)
         {
-            arr[n]=new int [n+1];
-        }
+            arr[i]=new int [n+1];
+        } 
         for(int i=0;i<n;i++)
-        {
-            getline(cin,s[i],';');
+        {   
+            getline(fin,s[i],';');
             for(int j=0;j<n;j++)
             {
-                fin>>a;
-                arr[i][j]=a;
+                if(j<n-1)
+                {   
+                    getline(fin,k[j],';');
+                    arr[i][j]=stoi(k[j]);
+                }
+                else 
+                {
+                    getline(fin,k[j],'\n');
+                    arr[i][j]=stoi(k[j]);
+                }
             }
-            arr[i][n+1]=0;
+            arr[i][n]=0; 
         }
+        vivod(s,arr,n);
     }
     fin.close();
 }
 
-void vivod()
-{
 
-}
 
 void newsp()
 {
     ofstream fout;
-    int n;
-    string *s=new string[20];
+    int n,a;
     fout.open("eurovision.csv");
     cout<<"Enter the number of countries : ";
     cin>>n;
     cin.ignore();
     fout<<n<<endl;
+    string *s=new string[n];
     for(int i=0;i<n;i++)
     {   
         getline(cin,s[i]);
@@ -61,13 +83,12 @@ void newsp()
         for(int j=0;j<n;j++)
         {
             cout<<"How many support votes "<<s[i]<<" received from "<<s[j]<<" : ";
-            cin>>n;
-            fout<<";"<<n;
+            cin>>a;
+            fout<<";"<<a;
         }
         fout<<endl;
     }
     delete []s;
-    fout.close();
     vvod();
 }
 
