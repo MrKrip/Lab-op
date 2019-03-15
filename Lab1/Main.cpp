@@ -10,24 +10,35 @@ void vivod(string *s,int **arr,int n)
     string a;
     int *schetchik=new int[10];
     int *ocenka = new int[10]{ 12,10,8,7,6,5,4,3,2,1 };
+    for(int j=0;j<10;j++)
+    {
+        schetchik[j]=(-1);
+    }
     for(int i=0;i<n;i++)
     {
         for(int m=0;m<10;m++)
         {
             for(int j=0;j<n;j++)
             {
-                if(arr[j][n]==0)
-                {
-                    if(max<arr[j][i])
+                for(int l=0;l<10;l++)
+                {  
+                    if(j!=schetchik[l])
                     {
-                        max=arr[j][i];
-                        schetchik[k]=j;
+                        if(max<arr[j][i])
+                        {
+                            max=arr[j][i];
+                            schetchik[k]=j;
+                        }
                     }
-                }    
+                }
             }
-            arr[schetchik[k]][n]=arr[schetchik[k]][n]+ocenka[m];
+            arr[schetchik[k]][n]+=ocenka[m];
             k++;
             max=0;
+        }
+        for(int j=0;j<10;j++)
+        {
+            schetchik[j]=(-1);
         }
         k=0;    
     }
@@ -36,7 +47,7 @@ void vivod(string *s,int **arr,int n)
     {
         for(int i=0;i<(n-1);i++)
         {
-            if(arr[i][n]<arr[i+1][n])
+            if(arr[i][p]<arr[i+1][p])
             {
                 for(int j=0;j<(p+1);j++)
                 {
@@ -56,13 +67,14 @@ void vivod(string *s,int **arr,int n)
     for(int i=0;i<10;i++)
     {
         fout<<s[i]<<";";
-        for(int j=0;j<9;j++)
+        for(int j=0;j<=19;j++)
         {
             fout<<arr[i][j]<<";";
         }
-        fout<<arr[i][10]<<endl;
+        fout<<arr[i][19]<<endl;
     }
     fout.close();
+    cout<<"Result is displayed in results.csv"<<endl;
     delete []ocenka;
     delete []schetchik;
 }
@@ -103,8 +115,7 @@ void vvod()
                 }
             }
             arr[i][n]=0; 
-        }
-        cout<<"Result is displayed in results.csv"<<endl;
+        }        
         vivod(s,arr,n);
         delete []s;
         delete []k;
