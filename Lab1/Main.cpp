@@ -93,25 +93,67 @@ void vvod()
         fin>>n;
         string *s=new string[n];
         string *k=new string[n];
+        string l,c,ns,trash;
         int **arr=new int *[n];
         for(int i=0;i<n;i++)
         {
             arr[i]=new int [n+1];
         } 
         for(int i=0;i<n;i++)
-        {   
-            getline(fin,s[i],';');
-            for(int j=0;j<n;j++)
+        {   c="";
+            ns="";
+            cin.ignore();
+            getline(fin,ns,';');
+            if(ns[0]=='"' && ns[ns.length()]!='"')
+            {   
+                s[i]+=ns;
+                ns="";    
+                getline(fin,ns,'"');
+                getline(fin,trash,';');
+                s[i]=s[i]+';'+ns+'"';
+            }
+            else
             {
+                s[i]=ns;
+            };
+            for(int q=0;q<s[i].length();q++)
+                   {
+                        if(s[i][q]!='"')
+                        {   
+                            if(s[i][q]!=';')
+                            {
+                                c+=s[i][q];
+                            }
+                        }
+                    }
+            for(int j=0;j<n;j++)
+            {   l="";
                 if(j<n-1)
                 {   
                     getline(fin,k[j],';');
-                    arr[i][j]=stoi(k[j]);
+                    for(int q=0;q<k[j].length();q++)
+                    {
+                        if(k[j][q]!='"')
+                        {
+                            l+=k[j][q];
+                        }
+                    }
+                   arr[i][j]=stoi(l);
                 }
                 else 
                 {
                     getline(fin,k[j],'\n');
-                    arr[i][j]=stoi(k[j]);
+                    for(int q=0;q<k[j].length();q++)
+                    {
+                        if(k[j][q]!='"')
+                        {   
+                            if(k[j][q]!=';')
+                            {
+                                l+=k[j][q];
+                            }                                                                              
+                        }
+                    }
+                   arr[i][j]=stoi(l);
                 }
             }
             arr[i][n]=0; 
