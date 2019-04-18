@@ -8,7 +8,60 @@ struct elem
 	elem *next;
 };
 
+struct queue
+{
+	elem *back;
+	queue(void) :back(NULL){}
+};
 
+void pushq(queue &q, int value)
+{
+	elem *temp = new elem;
+
+	temp->data = value;
+    temp->next = NULL;
+
+	if (!q.back)
+	{
+		q.back = temp;
+		temp->next = NULL;
+	}
+	else
+	{
+		temp->next = q.back;
+		q.back = temp;
+	}
+
+}
+
+void popq(queue &q, int &out)
+{
+	if (!q.back)
+	{
+		return;
+	}
+	if (!q.back->next)
+	{
+		out = q.back->data;
+		delete q.back;
+        q.back = NULL;
+	}
+	elem *del = q.back;
+	out = q.back->data;
+	q.back = q.back->next;
+	delete del;
+}
+
+void print(queue &q,int n)
+{
+	elem *cursor = q.back;
+	for(int i=0;i<n;i++)
+	{
+		cout << cursor->data << " ";
+		cursor = cursor->next;
+	}
+	cout << endl;
+}
 
 struct stack
 {
