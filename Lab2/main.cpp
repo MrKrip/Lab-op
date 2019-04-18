@@ -8,61 +8,6 @@ struct elem
 	elem *next;
 };
 
-struct queue
-{
-	elem *back;
-	queue(void) :back(NULL){}
-};
-
-void pushq(queue &q, int value)
-{
-	elem *temp = new elem;
-
-	temp->data = value;
-    temp->next = NULL;
-
-	if (!q.back)
-	{
-		q.back = temp;
-		temp->next = NULL;
-	}
-	else
-	{
-		temp->next = q.back;
-		q.back = temp;
-	}
-
-}
-
-void popq(queue &q, int &out)
-{
-	if (!q.back)
-	{
-		return;
-	}
-	if (!q.back->next)
-	{
-		out = q.back->data;
-		delete q.back;
-        q.back = NULL;
-	}
-	elem *del = q.back;
-	out = q.back->data;
-	q.back = q.back->next;
-	delete del;
-}
-
-void print(queue &q,int n)
-{
-	elem *cursor = q.back;
-	for(int i=0;i<n;i++)
-	{
-		cout << cursor->data << " ";
-		cursor = cursor->next;
-	}
-	cout << endl;
-}
-
 struct stack
 {
 	elem *top;
@@ -70,7 +15,7 @@ struct stack
 	stack(void) :top(NULL) {}
 };
 
-void pushst(stack &s, int value)
+void pushst(stack &s, char value)
 {
 	elem *temp = new elem;
 	temp->data = value;
@@ -78,7 +23,7 @@ void pushst(stack &s, int value)
 	s.top = temp;
 }
 
-void popst(stack &s, int &out)
+void popst(stack &s, char &out)
 {
 	if (!s.top)
 		;
@@ -95,12 +40,30 @@ void popst(stack &s, int &out)
 	delete del;
 }
 
-int main(int argc,char* argv[])
+void podschet(int argc,char* argv[])
 {
-    for(int  i = 0; i < argc; i++)
-    {
-        cout<<argv[i]<<endl;
-        cout<<i<<endl;
-    }
+	stack fun;
+	stack q;
+	string s;
+	for(int i=1;i<argc;i++)
+	{
+		s=argv[i];
+		for(int j=0;j<s.size();j++)
+		{
+			if(s[j]=='+' || s[j]=='-' || s[j]=='*' || s[j]=='/')
+			{
+				pushst(fun,s[i]);
+			}
+			else
+			{
+				pushst(q,s[i]);
+			}
+		}
+	}
+	
+}
+
+int main(int argc,char* argv[])
+{	
     system("pause");
 }
