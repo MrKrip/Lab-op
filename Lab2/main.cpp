@@ -40,10 +40,30 @@ void popst(stack &s, char &out)
 	delete del;
 }
 
+int priority(string s)
+{
+	if(s=="+")
+	{
+		return 1;
+	}
+	else if(s=="-")
+	{
+		return 1;
+	}
+	else if(s=="*")
+	{
+		return 2;
+	}
+	else if(s=="/")
+	{
+		return 2;
+	}
+}
+
 void podschet(int argc,char* argv[])
 {
 	stack fun;
-	stack q;
+	stack number;
 	string s;
 	for(int i=1;i<argc;i++)
 	{
@@ -56,7 +76,7 @@ void podschet(int argc,char* argv[])
 			}
 			else
 			{
-				pushst(q,s[i]);
+				pushst(number,s[i]);
 			}
 		}
 	}
